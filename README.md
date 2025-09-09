@@ -25,7 +25,7 @@ Para executar este projeto localmente, siga os passos abaixo:
 
 **1. Clone o Repositório:**
 ```bash
-git clone [https://github.com/seu-usuario/fastapi-movie-api.git](https://github.com/seu-usuario/fastapi-movie-api.git)
+git clone https://github.com/eniceofc/fastapi-movie-api.git
 cd fastapi-movie-api
 ```
 
@@ -42,7 +42,6 @@ python -m venv .venv
 ```bash
 pip install -r requirements.txt
 ```
-*(Nós ainda não criamos este arquivo, vamos fazer isso no próximo passo!)*
 
 **4. Configure as Variáveis de Ambiente:**
 É necessário criar uma conexão com um cluster do MongoDB Atlas e obter a sua Connection String.
