@@ -35,7 +35,7 @@ cd fastapi-movie-api
 python -m venv .venv
 
 # Ativar no Windows
-.\.venv\Scripts\Activate
+.\.env\Scripts\Activate
 ```
 
 **3. Instale as Dependências:**
