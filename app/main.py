@@ -5,6 +5,9 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Hello World"}
 
 MONGO_URI = "mongodb+srv://dio:dio@cluster0.zjgafy9.mongodb.net/"
 
@@ -32,7 +35,7 @@ def get_movie_by_id(id: str):
     try:
         movie_id = ObjectId(id)
     except Exception:
-        raise HTTPException(status_code=400, detail="Invalid MongoDB ObjectID")
+        raise HTTPException(status_code=400, detail="Invalid MongoDB ObjectId")
     
     movie = collection.find_one({"_id": movie_id})
     
@@ -45,12 +48,12 @@ def get_movie_by_id(id: str):
 
 class Movie(BaseModel):
     title: str
-    year: str
+    year: int
     
 @app.post("/movies", status_code=201)
 def create_movie(movie: Movie):
     
-    movie_dict = movie.dict()
+    movie_dict = movie.model_dump()
     
     result = collection.insert_one(movie_dict)
     
@@ -68,7 +71,7 @@ def update_movie(id: str, movie: Movie):
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid MongoDB ObjectId")
     
-    movie_dict = movie.dict()
+    movie_dict = movie.model_dump()
     
     result = collection.replace_one({"_id": movie_id}, movie_dict)
     
@@ -88,6 +91,6 @@ def delete_movie(id: str):
     result = collection.delete_one({"_id": movie_id})
     
     if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail=f'Movie with Id {id} not found')
+        raise HTTPException(status_code=404, detail=f'Movie with ID {id} not found')
     
     return {"message": "Movie successfully deleted"}
